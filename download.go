@@ -17,8 +17,10 @@ func main() {
 	Download("https://www.youtube.com/watch?v=e-ORhEE9VVg", 3 * time.Second, time.Duration(3 * time.Minute + 54 * time.Second), 0, "Shake it Off", "1989", "Taylor Swift")
 }
 */
-func Download(downloadUrl string, start, end time.Duration, trackNum int, trackName, albumName, artistName string) {
-	resp, err := http.PostForm("http://offliberty.com/off02.php", url.Values{"track": {downloadUrl}})
+
+// Download a youtube video using offLiberty.
+func Download(downloadURL string, start, end time.Duration, trackNum int, trackName, albumName, artistName string) {
+	resp, err := http.PostForm("http://offliberty.com/off02.php", url.Values{"track": {downloadURL}})
 	if err != nil {
 		println("offliberty failed")
 		return
@@ -46,10 +48,10 @@ func Download(downloadUrl string, start, end time.Duration, trackNum int, trackN
 		return
 	}
 
-	downloadUrl = body[:i]
-	println(downloadUrl)
+	downloadURL = body[:i]
+	println(downloadURL)
 
-	resp, err = http.Get(downloadUrl)
+	resp, err = http.Get(downloadURL)
 	if err != nil {
 		println("download failed")
 		return
